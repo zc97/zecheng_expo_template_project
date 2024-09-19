@@ -3,12 +3,13 @@ import React from 'react'
 import { useState } from 'react';
 
 
-export default function Input({isFocus, }) {
+export default function Input({isFocus, inputHandler}) {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
 
     const handleConfirm = () => {
         console.log(text)
+        inputHandler(text)
     }
 
     return (
