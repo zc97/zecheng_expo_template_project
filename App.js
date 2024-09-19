@@ -6,12 +6,12 @@ import { useState } from 'react';
 
 export default function App() {
   const appName = "Zecheng's App";
-  const [receivedText, setReceivedText] = useState("");
   const [inputVisibility, setInputVisibility] = useState(false);
+  const [receivedText, setReceivedText] = useState("");
 
   const handleInputData = (textContent) => {
     setReceivedText(textContent)
-    setInputVisibility(false)
+    // setInputVisibility(false)
   }
 
   return (
