@@ -41,7 +41,9 @@ export default function Input({isFocus, inputHandler, inputVisibility}) {
                     {text.length >= 3 ? 'Thank you' : 'Please type more than 3 characters'}
                 </Text>
             )}
-            <Button title="Confirm" style={styles.buttonContainer} onPress={handleConfirm}></Button>
+            <View style={styles.buttonContainer}>
+                <Button title="Confirm" onPress={handleConfirm}></Button>
+            </View>
         </View>
     </Modal>
     )
