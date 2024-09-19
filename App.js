@@ -17,9 +17,9 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <Header name={appName} />
+      <Header name={appName}/>
       <Input ifFocus={true} inputHandler={handleInputData} inputVisibility={inputVisibility} />
-      <Text>{receivedText}</Text>
+      <Text style={styles.textStyle}>{receivedText}</Text>
       <Button title="Add a goal" onPress={() => {setInputVisibility(true)}}></Button>
     </View>
   );
@@ -32,4 +32,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textStyle: {
+    color: 'blue',
+    fontSize:20,
+  }
 });

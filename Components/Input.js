@@ -18,7 +18,7 @@ export default function Input({isFocus, inputHandler, inputVisibility}) {
             <TextInput 
                 placeholder='something to type'
                 keyboardType='defualt' 
-                style={{borderBlockColor:'purple', borderBottomWidth:1}}
+                style={styles.textInputStyle}
                 value={text}
                 onChangeText={function (changedText) {
                     setText(changedText);
@@ -54,5 +54,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    textInputStyle: {
+        borderWidth: 2,
+        borderColor: 'black',
+        color: 'blue',
+        fontSize:20,
+      }
   });
   
