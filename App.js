@@ -11,7 +11,7 @@ export default function App() {
 
   const handleInputData = (textContent) => {
     setReceivedText(textContent)
-    // setInputVisibility(false)
+    setInputVisibility(false)
   }
 
   return (
