@@ -35,5 +35,5 @@ const styles = StyleSheet.create({
   textStyle: {
     color: 'blue',
     fontSize:20,
-  }
+  },
 });

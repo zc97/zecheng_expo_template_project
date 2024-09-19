@@ -41,7 +41,7 @@ export default function Input({isFocus, inputHandler, inputVisibility}) {
                     {text.length >= 3 ? 'Thank you' : 'Please type more than 3 characters'}
                 </Text>
             )}
-            <Button title="Confirm" onPress={handleConfirm}></Button>
+            <Button title="Confirm" style={styles.buttonContainer} onPress={handleConfirm}></Button>
         </View>
     </Modal>
     )
@@ -59,6 +59,10 @@ const styles = StyleSheet.create({
         borderColor: 'black',
         color: 'blue',
         fontSize:20,
-      }
+    },
+    buttonContainer: {
+        width:"30%",
+        marginVertical: 30,
+    }
   });
   
