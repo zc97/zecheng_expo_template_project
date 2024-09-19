@@ -1,9 +1,9 @@
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, Modal} from 'react-native';
 import React from 'react'
 import { useState } from 'react';
 
 
-export default function Input({isFocus, inputHandler}) {
+export default function Input({isFocus, inputHandler, inputVisibility}) {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
 
@@ -13,34 +13,46 @@ export default function Input({isFocus, inputHandler}) {
     }
 
     return (
-    <View>
-        <TextInput 
-            placeholder='something to type'
-            keyboardType='defualt' 
-            style={{borderBlockColor:'purple', borderBottomWidth:1}}
-            value={text}
-            onChangeText={function (changedText) {
-                setText(changedText);
-                setShowMessage(false);
-            } }
-            autoFocus={isFocus}
-            onBlur={() => {
-                setShowMessage(true)}}
-        />
-        
+    <Modal visible={inputVisibility} animationType="slide">
+        <View style={styles.container}>
+            <TextInput 
+                placeholder='something to type'
+                keyboardType='defualt' 
+                style={{borderBlockColor:'purple', borderBottomWidth:1}}
+                value={text}
+                onChangeText={function (changedText) {
+                    setText(changedText);
+                    setShowMessage(false);
+                } }
+                autoFocus={isFocus}
+                onBlur={() => {
+                    setShowMessage(true)}}
+            />
+            
 
-        {text.length > 0 && !showMessage && (
+            {text.length > 0 && !showMessage && (
+                    <Text>
+                        Character count: {text.length}
+                    </Text>
+                )}
+
+            {showMessage && (
                 <Text>
-                    Character count: {text.length}
+                    {text.length >= 3 ? 'Thank you' : 'Please type more than 3 characters'}
                 </Text>
             )}
-
-        {showMessage && (
-            <Text>
-                {text.length >= 3 ? 'Thank you' : 'Please type more than 3 characters'}
-            </Text>
-        )}
-        <Button title="Confirm" onPress={handleConfirm}></Button>
-    </View>
+            <Button title="Confirm" onPress={handleConfirm}></Button>
+        </View>
+    </Modal>
     )
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: 'skyblue',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
+  
