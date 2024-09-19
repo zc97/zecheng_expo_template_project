@@ -1,11 +1,15 @@
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import React from 'react'
 import { useState } from 'react';
 
 
-export default function Input({isFocus}) {
+export default function Input({isFocus, }) {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
+
+    const handleConfirm = () => {
+        console.log(text)
+    }
 
     return (
     <View>
@@ -23,7 +27,6 @@ export default function Input({isFocus}) {
                 setShowMessage(true)}}
         />
         
-        {/* <Text>{text}</Text> */}
 
         {text.length > 0 && !showMessage && (
                 <Text>
@@ -36,6 +39,7 @@ export default function Input({isFocus}) {
                 {text.length >= 3 ? 'Thank you' : 'Please type more than 3 characters'}
             </Text>
         )}
+        <Button title="Confirm" onPress={handleConfirm}></Button>
     </View>
     )
 }
