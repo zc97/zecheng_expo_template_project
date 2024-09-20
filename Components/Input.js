@@ -1,4 +1,4 @@
-import { Button, StyleSheet, Text, TextInput, View, Modal} from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, Modal, Image} from 'react-native';
 import React from 'react'
 import { useState } from 'react';
 
@@ -23,6 +23,16 @@ export default function Input({isFocus, inputHandler, cancelHandler, inputVisibi
     return (
     <Modal visible={inputVisibility} animationType="slide">
         <View style={styles.container}>
+            <Image 
+            source={{uri: 'https://cdn-icons-png.flaticon.com/512/2617/2617812.png'}} 
+            style={styles.image} 
+            alt="An image with an arrow shoting the target" 
+            />
+            <Image 
+                source={require('../assets/image1.png')} 
+                style={styles.image} 
+                alt="Another image with an arrow shoting the target" 
+            />
             <TextInput 
                 placeholder='something to type'
                 keyboardType='defualt' 
@@ -72,6 +82,7 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: 'black',
         padding: 4,
+        marginVertical: 30,
         color: 'black',
         fontSize: 20,
     },
@@ -84,6 +95,10 @@ const styles = StyleSheet.create({
     button: {
         flex: 1,
         marginHorizontal: 15,
+    },
+    image: {
+        width:100,
+        height:100
     }
   });
   
