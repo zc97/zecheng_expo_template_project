@@ -1,3 +1,4 @@
+
 import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, Alert } from 'react-native';
 import Header from './Components/Header';
@@ -18,9 +19,11 @@ export default function App() {
     Alert.alert('Cancel', 'Do you want to cancel the current input of your goal?', [
       {
         text: 'Cancel',
-        style: 'cancel',
+        style: 'cancel', 
       },
-      {text: 'OK', onPress: () => setInputVisibility(false)},
+      {
+        text: 'OK', 
+        onPress: () => setInputVisibility(false)},
     ]);
   }
 
@@ -29,7 +32,7 @@ export default function App() {
       <View style={styles.topView}>
         <StatusBar style="auto" />
         <Header name={appName}/>
-        <Input ifFocus={true} inputHandler={handleInputData} handleCancel={handleCancel} inputVisibility={inputVisibility} />
+        <Input ifFocus={true} inputHandler={handleInputData} cancelHandler={handleCancel} inputVisibility={inputVisibility} />
         <Button title="Add a goal" onPress={() => {setInputVisibility(true)}}></Button>
       </View>
       <View style={styles.bottomView}>
