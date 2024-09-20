@@ -3,7 +3,7 @@ import React from 'react'
 import { useState } from 'react';
 
 
-export default function Input({isFocus, inputHandler, inputVisibility}) {
+export default function Input({isFocus, inputHandler, handleCancel, inputVisibility}) {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
 
@@ -28,7 +28,6 @@ export default function Input({isFocus, inputHandler, inputVisibility}) {
                 onBlur={() => {
                     setShowMessage(true)}}
             />
-            
 
             {text.length > 0 && !showMessage && (
                     <Text>
@@ -42,6 +41,7 @@ export default function Input({isFocus, inputHandler, inputVisibility}) {
                 </Text>
             )}
             <View style={styles.buttonContainer}>
+                <Button title="Cancel" onPress={handleCancel}></Button>
                 <Button title="Confirm" onPress={handleConfirm}></Button>
             </View>
         </View>
@@ -52,18 +52,19 @@ export default function Input({isFocus, inputHandler, inputVisibility}) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'skyblue',
+      backgroundColor: '#fcf',
       alignItems: 'center',
       justifyContent: 'center',
     },
     textInputStyle: {
         borderWidth: 2,
         borderColor: 'black',
-        color: 'blue',
-        fontSize:20,
+        color: 'black',
+        fontSize: 20,
     },
     buttonContainer: {
-        width:"30%",
+        flexDirection: 'row',
+        width:"40%",
         marginVertical: 30,
     }
   });
