@@ -41,8 +41,8 @@ export default function Input({isFocus, inputHandler, handleCancel, inputVisibil
                 </Text>
             )}
             <View style={styles.buttonContainer}>
-                <Button title="Cancel" onPress={handleCancel}></Button>
-                <Button title="Confirm" onPress={handleConfirm}></Button>
+                <Button title="Cancel" style={styles.button} onPress={handleCancel}></Button>
+                <Button title="Confirm" style={styles.button} onPress={handleConfirm}></Button>
             </View>
         </View>
     </Modal>
@@ -59,13 +59,19 @@ const styles = StyleSheet.create({
     textInputStyle: {
         borderWidth: 2,
         borderColor: 'black',
+        padding: 4,
         color: 'black',
         fontSize: 20,
     },
     buttonContainer: {
         flexDirection: 'row',
-        width:"40%",
+        justifyContent: 'center',
+        width:"60%",
         marginVertical: 30,
+    },
+    button: {
+        flex: 1,
+        marginHorizontal: 15,
     }
   });
   
