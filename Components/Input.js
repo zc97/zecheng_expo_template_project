@@ -59,12 +59,10 @@ export default function Input({isFocus, inputHandler, cancelHandler, inputVisibi
                 </Text>
             )}
             <View style={styles.buttonContainer}>
-                <Button title="Cancel" style={styles.button} onPress={handleCancel}/>
+                <Button title="Cancel" onPress={handleCancel}></Button>
                 <Button title="Confirm" 
-                    style={styles.button} 
                     onPress={handleConfirm}
-                    disabled = {text.length < 3}
-                />
+                    disabled = {text.length < 3}></Button>
             </View>
         </View>
     </Modal>
@@ -88,13 +86,9 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        width:"60%",
+        justifyContent: 'space-between',
+        width:"50%",
         marginVertical: 30,
-    },
-    button: {
-        flex: 1,
-        marginHorizontal: 15,
     },
     image: {
         width:100,
