@@ -9,10 +9,12 @@ export default function App() {
   const appName = "Zecheng's App";
   const [inputVisibility, setInputVisibility] = useState(false);
   const [receivedText, setReceivedText] = useState("");
+  const [goals, setGoals] = useState([])
 
   const handleInputData = (textContent) => {
     setReceivedText(textContent)
     setInputVisibility(false)
+    setGoals(goal => [...goals, {text: textContent, id: Math.random()}])
   }
 
   const handleCancel = () => {
@@ -36,7 +38,8 @@ export default function App() {
         <Button title="Add a goal" onPress={() => {setInputVisibility(true)}}></Button>
       </View>
       <View style={styles.bottomView}>
-        <Text style={styles.textStyle}>{receivedText}</Text>
+        {goals.map(() => {})}
+        {/* <Text style={styles.textStyle}>{receivedText}</Text> */}
       </View>
     </SafeAreaView>
   );
