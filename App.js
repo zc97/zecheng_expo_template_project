@@ -4,6 +4,7 @@ import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, Alert, ScrollV
 import Header from './Components/Header';
 import Input from './Components/Input';
 import { useState } from 'react';
+import GoalItem from './Components/GoalItem';
 
 export default function App() {
   const appName = "Zecheng's App";
@@ -41,9 +42,7 @@ export default function App() {
         <FlatList data={goals} renderItem={({item}) => {
           console.log(item);
           return (
-            <View key={item.id}  style={styles.textContainerStyle}>
-              <Text style={styles.textStyle}>{item.text}</Text>
-            </View>
+            <GoalItem goalObj={item}></GoalItem>
           );
         }}>
 
@@ -69,11 +68,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
   },
-  textStyle: {
-    color: 'blue',
-    fontSize:20,
-    padding: 5,
-  },
   topView: {
     flex: 1,
     alignItems: "center",
@@ -87,13 +81,5 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 20,
-  },
-  textContainerStyle: {
-    marginVertical: 10,
-    backgroundColor: '#ccc',
-    borderColor: '#ccc',
-    padding: 10,
-    borderRadius: 5,
-    alignItems: "center",
   }
 });
