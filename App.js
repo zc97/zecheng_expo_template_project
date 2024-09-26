@@ -1,6 +1,6 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, Alert } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, Alert, ScrollView } from 'react-native';
 import Header from './Components/Header';
 import Input from './Components/Input';
 import { useState } from 'react';
@@ -38,14 +38,16 @@ export default function App() {
         <Button title="Add a goal" onPress={() => {setInputVisibility(true)}}></Button>
       </View>
       <View style={styles.bottomView}>
-        {goals.map((goalObj) => {
-          return (
-            <View key={goalObj.id}>
-              <Text style={styles.textStyle}>{goalObj.text}</Text>
-            </View>
-          );
-          })}
-        {/* <Text style={styles.textStyle}>{receivedText}</Text> */}
+        <ScrollView style={styles.scrollView}>
+          {goals.map((goalObj) => {
+            return (
+              <View key={goalObj.id}>
+                <Text style={styles.textStyle}>{goalObj.text}</Text>
+              </View>
+            );
+            })}
+          {/* <Text style={styles.textStyle}>{receivedText}</Text> */}
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -74,6 +76,9 @@ const styles = StyleSheet.create({
     flex: 4,
     backgroundColor: "#fcf",
     alignContent: "center",
-    alignItems: "center",
+    // alignItems: "center",
   },
+  scrollView: {
+    marginHorizontal: 20,
+  }
 });
