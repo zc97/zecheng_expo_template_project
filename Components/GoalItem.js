@@ -1,10 +1,11 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Button } from 'react-native'
 import React from 'react'
 
-export default function GoalItem({goalObj}) {
+export default function GoalItem({goalObj, deleteHandler}) {
     return (
         <View key={goalObj.id}  style={styles.textContainerStyle}>
             <Text style={styles.textStyle}>{goalObj.text}</Text>
+            <Button title='X' onPress={deleteHandler(goalObj.id)}></Button>
         </View>
     );
 }

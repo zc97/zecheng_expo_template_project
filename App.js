@@ -29,6 +29,10 @@ export default function App() {
         onPress: () => setInputVisibility(false)},
     ]);
   }
+  
+  const headleDelete = (deletedId) => {
+    console.log("goal deleted")
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,11 +44,12 @@ export default function App() {
       </View>
       <View style={styles.bottomView}>
         <FlatList data={goals} renderItem={({item}) => {
-          console.log(item);
-          return (
-            <GoalItem goalObj={item}></GoalItem>
-          );
-        }}>
+          // console.log(item);
+            return (
+              <GoalItem goalObj={item} deleteHandler = {headleDelete}></GoalItem>
+            );
+          }}
+        >
 
         </FlatList>
         {/* <ScrollView style={styles.scrollView}>
