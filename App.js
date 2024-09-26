@@ -38,7 +38,13 @@ export default function App() {
         <Button title="Add a goal" onPress={() => {setInputVisibility(true)}}></Button>
       </View>
       <View style={styles.bottomView}>
-        {goals.map(() => {})}
+        {goals.map((goalObj) => {
+          return (
+            <View key={goalObj.id}>
+              <Text style={styles.textStyle}>{goalObj.text}</Text>
+            </View>
+          );
+          })}
         {/* <Text style={styles.textStyle}>{receivedText}</Text> */}
       </View>
     </SafeAreaView>
