@@ -52,6 +52,9 @@ const styles = StyleSheet.create({
     color: 'blue',
     fontSize:20,
     marginVertical: 10,
+    backgroundColor: 'gray',
+    padding: 5,
+    borderRadius: 5,
   },
   topView: {
     flex: 1,
@@ -63,5 +66,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fcf",
     alignContent: "center",
     alignItems: "center",
-  }
+  },
 });
