@@ -1,6 +1,6 @@
 
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, Alert, ScrollView } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, Alert, ScrollView, FlatList } from 'react-native';
 import Header from './Components/Header';
 import Input from './Components/Input';
 import { useState } from 'react';
@@ -12,7 +12,7 @@ export default function App() {
   const [goals, setGoals] = useState([])
 
   const handleInputData = (textContent) => {
-    setReceivedText(textContent)
+    // setReceivedText(textContent)
     setInputVisibility(false)
     setGoals(goal => [...goals, {text: textContent, id: Math.random()}])
   }
@@ -38,7 +38,17 @@ export default function App() {
         <Button title="Add a goal" onPress={() => {setInputVisibility(true)}}></Button>
       </View>
       <View style={styles.bottomView}>
-        <ScrollView style={styles.scrollView}>
+        <FlatList data={goals} renderItem={({item}) => {
+          console.log(item);
+          return (
+            <View key={item.id}  style={styles.textContainerStyle}>
+              <Text style={styles.textStyle}>{item.text}</Text>
+            </View>
+          );
+        }}>
+
+        </FlatList>
+        {/* <ScrollView style={styles.scrollView}>
           {goals.map((goalObj) => {
             return (
               <View key={goalObj.id}>
@@ -46,8 +56,8 @@ export default function App() {
               </View>
             );
             })}
-          {/* <Text style={styles.textStyle}>{receivedText}</Text> */}
-        </ScrollView>
+        </ScrollView> */}
+        {/* <Text style={styles.textStyle}>{receivedText}</Text> */}
       </View>
     </SafeAreaView>
   );
@@ -62,10 +72,7 @@ const styles = StyleSheet.create({
   textStyle: {
     color: 'blue',
     fontSize:20,
-    marginVertical: 10,
-    backgroundColor: 'gray',
     padding: 5,
-    borderRadius: 5,
   },
   topView: {
     flex: 1,
@@ -80,5 +87,13 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     marginHorizontal: 20,
+  },
+  textContainerStyle: {
+    marginVertical: 10,
+    backgroundColor: '#ccc',
+    borderColor: '#ccc',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: "center",
   }
 });
