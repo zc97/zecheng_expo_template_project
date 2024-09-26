@@ -1,20 +1,38 @@
-import { Button, StyleSheet, Text, TextInput, View, Modal} from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, Modal, Image} from 'react-native';
 import React from 'react'
 import { useState } from 'react';
 
 
-export default function Input({isFocus, inputHandler, inputVisibility}) {
+export default function Input({isFocus, inputHandler, cancelHandler, inputVisibility}) {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
+    // const [clearInputText, setClearInputText] = useState(false);
+    
 
     const handleConfirm = () => {
         console.log(text)
         inputHandler(text)
+        setText("")
+    }
+
+    const handleCancel = () => {
+        cancelHandler()
+        setText("")
     }
 
     return (
     <Modal visible={inputVisibility} animationType="slide">
         <View style={styles.container}>
+            <Image 
+            source={{uri: 'https://cdn-icons-png.flaticon.com/512/2617/2617812.png'}} 
+            style={styles.image} 
+            alt="An image with an arrow shoting the target" 
+            />
+            <Image 
+                source={require('../assets/image1.png')} 
+                style={styles.image} 
+                alt="Another image with an arrow shoting the target" 
+            />
             <TextInput 
                 placeholder='something to type'
                 keyboardType='defualt' 
@@ -28,7 +46,6 @@ export default function Input({isFocus, inputHandler, inputVisibility}) {
                 onBlur={() => {
                     setShowMessage(true)}}
             />
-            
 
             {text.length > 0 && !showMessage && (
                     <Text>
@@ -42,7 +59,10 @@ export default function Input({isFocus, inputHandler, inputVisibility}) {
                 </Text>
             )}
             <View style={styles.buttonContainer}>
-                <Button title="Confirm" onPress={handleConfirm}></Button>
+                <Button title="Cancel" onPress={handleCancel}></Button>
+                <Button title="Confirm" 
+                    onPress={handleConfirm}
+                    disabled = {text.length < 3}></Button>
             </View>
         </View>
     </Modal>
@@ -52,19 +72,27 @@ export default function Input({isFocus, inputHandler, inputVisibility}) {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'skyblue',
+      backgroundColor: '#fcf',
       alignItems: 'center',
       justifyContent: 'center',
     },
     textInputStyle: {
         borderWidth: 2,
         borderColor: 'black',
-        color: 'blue',
-        fontSize:20,
+        padding: 4,
+        marginVertical: 30,
+        color: 'black',
+        fontSize: 20,
     },
     buttonContainer: {
-        width:"30%",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width:"50%",
         marginVertical: 30,
+    },
+    image: {
+        width:100,
+        height:100
     }
   });
   

@@ -1,5 +1,6 @@
+
 import { StatusBar } from 'expo-status-bar';
-import { Button, StyleSheet, Text, TextInput, View, SafeAreaView } from 'react-native';
+import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, Alert } from 'react-native';
 import Header from './Components/Header';
 import Input from './Components/Input';
 import { useState } from 'react';
@@ -14,12 +15,24 @@ export default function App() {
     setInputVisibility(false)
   }
 
+  const handleCancel = () => {
+    Alert.alert('Cancel', 'Do you want to cancel the current input of your goal?', [
+      {
+        text: 'Cancel',
+        style: 'cancel', 
+      },
+      {
+        text: 'OK', 
+        onPress: () => setInputVisibility(false)},
+    ]);
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
         <StatusBar style="auto" />
         <Header name={appName}/>
-        <Input ifFocus={true} inputHandler={handleInputData} inputVisibility={inputVisibility} />
+        <Input ifFocus={true} inputHandler={handleInputData} cancelHandler={handleCancel} inputVisibility={inputVisibility} />
         <Button title="Add a goal" onPress={() => {setInputVisibility(true)}}></Button>
       </View>
       <View style={styles.bottomView}>
@@ -33,7 +46,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    // alignItems: 'center',
     justifyContent: 'center',
   },
   textStyle: {
@@ -48,7 +60,7 @@ const styles = StyleSheet.create({
   },
   bottomView: {
     flex: 4,
-    backgroundColor: "gray",
+    backgroundColor: "#fcf",
     alignContent: "center",
     alignItems: "center",
   }
