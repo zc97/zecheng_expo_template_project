@@ -39,6 +39,24 @@ export default function App() {
     });
   }
 
+  const handleDeleteAll = () => {
+    setGoals(goals => []);
+  }
+
+  const handleDeleteAllAlert = () => {
+    Alert.alert(
+      "Delete All Goals",
+      "Are you sure you want to delete all goals?",
+      [
+        {
+          text: "No",
+          style: "cancel"
+        },
+        { text: "Yes", onPress: handleDeleteAll }
+      ]
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
@@ -63,6 +81,13 @@ export default function App() {
             <View style={styles.headerContainer}>
               <Text style={styles.headerText}>My Goals</Text> 
             </View>
+            : null
+          }
+
+          ListFooterComponent={goals.length > 0 ? 
+            <View style={styles.footerContainer}>
+              <Button title="Delete All" onPress={handleDeleteAllAlert} />
+            </View> 
             : null
           }
         >
@@ -98,6 +123,9 @@ const styles = StyleSheet.create({
   headerText: {
     color: "#E600DE",
     fontSize: 20,
+  },
+  footerContainer: {
+    marginVertical: 10,
+    alignItems: "center",
   }
-
 });
