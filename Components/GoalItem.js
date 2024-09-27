@@ -3,7 +3,6 @@ import React from 'react'
 
 export default function GoalItem({goalObj, deleteHandler}) {
     function handleDelete() {
-        console.log("deleted");
         deleteHandler(goalObj.id);
     }
     
@@ -18,13 +17,13 @@ export default function GoalItem({goalObj, deleteHandler}) {
 const styles = StyleSheet.create({
     text: {
         color: "purple",
-        padding: 5,
+        padding: 15,
         fontSize: 20,
       },
       textContainer: {
         backgroundColor: "#aaa",
         borderRadius: 5,
-        marginTop: 50,
+        marginTop: 30,
         marginHorizontal: 30,
         flexDirection: "row",
         alignItems: "center",

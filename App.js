@@ -49,24 +49,18 @@ export default function App() {
       </View>
       <View style={styles.bottomView}>
         <FlatList data={goals} renderItem={({item}) => {
-          // console.log(item);
+            // console.log(item);
             return (
               <GoalItem goalObj={item} deleteHandler={headleDelete}></GoalItem>
             );
           }}
+          ListEmptyComponent={
+            <View style={styles.emptyContainer}>
+              <Text style={styles.emptyText}>No goals to show</Text>
+            </View>
+          }
         >
-
         </FlatList>
-        {/* <ScrollView style={styles.scrollView}>
-          {goals.map((goalObj) => {
-            return (
-              <View key={goalObj.id}>
-                <Text style={styles.textStyle}>{goalObj.text}</Text>
-              </View>
-            );
-            })}
-        </ScrollView> */}
-        {/* <Text style={styles.textStyle}>{receivedText}</Text> */}
       </View>
     </SafeAreaView>
   );
@@ -93,5 +87,13 @@ const styles = StyleSheet.create({
     // alignContent: "center",
     // alignItems: "center",
   },
+  emptyContainer: {
+    marginVertical: 30,
+    alignItems: "center",
+  },
+  emptyText: {
+    color: "#E600DE",
+    fontSize: 20,
+  }
 
 });
