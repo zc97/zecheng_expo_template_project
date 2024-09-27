@@ -15,7 +15,7 @@ export default function App() {
   const handleInputData = (textContent) => {
     // setReceivedText(textContent)
     setInputVisibility(false)
-    setGoals(goal => [...goals, {text: textContent, id: Math.random()}])
+    setGoals(goals => [...goals, {text: textContent, id: Math.random()}])
   }
 
   const handleCancel = () => {
@@ -31,7 +31,12 @@ export default function App() {
   }
   
   const headleDelete = (deletedId) => {
-    console.log("goal deleted")
+    // console.log("goal deleted")
+    setGoals((prevGoals) => {
+      return prevGoals.filter((goalObj) => {
+        return goalObj.id != deletedId;
+      });
+    });
   }
 
   return (
@@ -46,7 +51,7 @@ export default function App() {
         <FlatList data={goals} renderItem={({item}) => {
           // console.log(item);
             return (
-              <GoalItem goalObj={item} deleteHandler = {headleDelete}></GoalItem>
+              <GoalItem goalObj={item} deleteHandler={headleDelete}></GoalItem>
             );
           }}
         >
@@ -73,6 +78,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
   },
+  scrollView: {
+    alignItems: "center",
+    marginHorizontal: 20,
+  },
   topView: {
     flex: 1,
     alignItems: "center",
@@ -81,10 +90,8 @@ const styles = StyleSheet.create({
   bottomView: {
     flex: 4,
     backgroundColor: "#fcf",
-    alignContent: "center",
+    // alignContent: "center",
     // alignItems: "center",
   },
-  scrollView: {
-    marginHorizontal: 20,
-  }
+
 });
