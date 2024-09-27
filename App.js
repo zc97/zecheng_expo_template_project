@@ -90,6 +90,7 @@ export default function App() {
             </View> 
             : null
           }
+          ItemSeparatorComponent={<View style={styles.goalSeparator} />}
         >
         </FlatList>
       </View>
@@ -127,5 +128,12 @@ const styles = StyleSheet.create({
   footerContainer: {
     marginVertical: 10,
     alignItems: "center",
+  },
+  goalSeparator: {
+    height: 3,
+    backgroundColor: 'gray',
+    marginHorizontal: 20,
+    marginVertical: 10,
+
   }
 });
