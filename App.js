@@ -55,9 +55,15 @@ export default function App() {
             );
           }}
           ListEmptyComponent={
-            <View style={styles.emptyContainer}>
-              <Text style={styles.emptyText}>No goals to show</Text>
+            <View style={styles.headerContainer}>
+              <Text style={styles.headerText}>No goals to show</Text>
             </View>
+          }
+          ListHeaderComponent={goals.length > 0 ? 
+            <View style={styles.headerContainer}>
+              <Text style={styles.headerText}>My Goals</Text> 
+            </View>
+            : null
           }
         >
         </FlatList>
@@ -84,14 +90,12 @@ const styles = StyleSheet.create({
   bottomView: {
     flex: 4,
     backgroundColor: "#fcf",
-    // alignContent: "center",
-    // alignItems: "center",
   },
-  emptyContainer: {
-    marginVertical: 30,
+  headerContainer: {
+    marginVertical: 20,
     alignItems: "center",
   },
-  emptyText: {
+  headerText: {
     color: "#E600DE",
     fontSize: 20,
   }
