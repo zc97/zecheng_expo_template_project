@@ -16,7 +16,7 @@ export default function App() {
           name='Home' 
           component={Home} 
           options={{
-            title:"My Application Home", 
+            title:"My Home", 
             headerStyle: { backgroundColor: 'purple'}, 
             headerTintColor: 'white'}}>
         </Stack.Screen>
