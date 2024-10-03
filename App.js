@@ -15,7 +15,7 @@ export default function App() {
   const handleInputData = (textContent) => {
     // setReceivedText(textContent)
     setInputVisibility(false)
-    setGoals(goal => [...goals, {text: textContent, id: Math.random()}])
+    setGoals(goals => [...goals, {text: textContent, id: Math.random()}])
   }
 
   const handleCancel = () => {
@@ -31,7 +31,30 @@ export default function App() {
   }
   
   const headleDelete = (deletedId) => {
-    console.log("goal deleted")
+    // console.log("goal deleted")
+    setGoals((prevGoals) => {
+      return prevGoals.filter((goalObj) => {
+        return goalObj.id != deletedId;
+      });
+    });
+  }
+
+  const handleDeleteAll = () => {
+    setGoals(goals => []);
+  }
+
+  const handleDeleteAllAlert = () => {
+    Alert.alert(
+      "Delete All Goals",
+      "Are you sure you want to delete all goals?",
+      [
+        {
+          text: "No",
+          style: "cancel"
+        },
+        { text: "Yes", onPress: handleDeleteAll }
+      ]
+    );
   }
 
   return (
@@ -44,24 +67,32 @@ export default function App() {
       </View>
       <View style={styles.bottomView}>
         <FlatList data={goals} renderItem={({item}) => {
-          // console.log(item);
+            // console.log(item);
             return (
-              <GoalItem goalObj={item} deleteHandler = {headleDelete}></GoalItem>
+              <GoalItem goalObj={item} deleteHandler={headleDelete}></GoalItem>
             );
           }}
-        >
+          ListEmptyComponent={
+            <View style={styles.headerContainer}>
+              <Text style={styles.headerText}>No goals to show</Text>
+            </View>
+          }
+          ListHeaderComponent={goals.length > 0 ? 
+            <View style={styles.headerContainer}>
+              <Text style={styles.headerText}>My Goals</Text> 
+            </View>
+            : null
+          }
 
+          ListFooterComponent={goals.length > 0 ? 
+            <View style={styles.footerContainer}>
+              <Button title="Delete All" onPress={handleDeleteAllAlert} />
+            </View> 
+            : null
+          }
+          ItemSeparatorComponent={<View style={styles.goalSeparator} />}
+        >
         </FlatList>
-        {/* <ScrollView style={styles.scrollView}>
-          {goals.map((goalObj) => {
-            return (
-              <View key={goalObj.id}>
-                <Text style={styles.textStyle}>{goalObj.text}</Text>
-              </View>
-            );
-            })}
-        </ScrollView> */}
-        {/* <Text style={styles.textStyle}>{receivedText}</Text> */}
       </View>
     </SafeAreaView>
   );
@@ -73,6 +104,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'center',
   },
+  scrollView: {
+    alignItems: "center",
+    marginHorizontal: 20,
+  },
   topView: {
     flex: 1,
     alignItems: "center",
@@ -81,10 +116,24 @@ const styles = StyleSheet.create({
   bottomView: {
     flex: 4,
     backgroundColor: "#fcf",
-    alignContent: "center",
-    // alignItems: "center",
   },
-  scrollView: {
+  headerContainer: {
+    marginVertical: 20,
+    alignItems: "center",
+  },
+  headerText: {
+    color: "#E600DE",
+    fontSize: 20,
+  },
+  footerContainer: {
+    marginVertical: 10,
+    alignItems: "center",
+  },
+  goalSeparator: {
+    height: 3,
+    backgroundColor: 'gray',
     marginHorizontal: 20,
+    marginVertical: 10,
+
   }
 });
