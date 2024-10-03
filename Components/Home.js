@@ -6,7 +6,7 @@ import Input from './Input';
 import { useState } from 'react';
 import GoalItem from './GoalItem';
 
-export default function Home() {
+export default function Home({ navigation }) {
   const appName = "Zecheng's App";
   const [inputVisibility, setInputVisibility] = useState(false);
   const [receivedText, setReceivedText] = useState("");
@@ -57,6 +57,10 @@ export default function Home() {
     );
   }
 
+  const handleGoalDetails = () => {
+    navigation.navigate('Details')
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
@@ -69,7 +73,7 @@ export default function Home() {
         <FlatList data={goals} renderItem={({item}) => {
             // console.log(item);
             return (
-              <GoalItem goalObj={item} deleteHandler={headleDelete}></GoalItem>
+              <GoalItem goalObj={item} deleteHandler={headleDelete} goalDetailshandler={handleGoalDetails}></GoalItem>
             );
           }}
           ListEmptyComponent={
