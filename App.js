@@ -20,7 +20,12 @@ export default function App() {
             headerStyle: { backgroundColor: 'purple'}, 
             headerTintColor: 'white'}}>
         </Stack.Screen>
-        <Stack.Screen name='Details' component={GoalDetails} options={({ route }) => ({ title: route.params.pressedGoal.text })}></Stack.Screen>
+        <Stack.Screen name='Details' 
+          component={GoalDetails} 
+          options={({ route }) => (
+            { title: route.params ? route.params.pressedGoal.text : "More Details",}
+            )}
+        ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   )
