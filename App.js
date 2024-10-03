@@ -6,7 +6,6 @@ import { createNativeStackNavigator} from '@react-navigation/native-stack';
 import GoalDetails from './Components/GoalDetails';
 
 const Stack = createNativeStackNavigator();
-// console.log(Stack)
 
 export default function App() {
   return (
@@ -23,6 +22,7 @@ export default function App() {
         <Stack.Screen name='Details' 
           component={GoalDetails} 
           options={({ route }) => (
+            // callback function for dynamic header
             { title: route.params ? route.params.pressedGoal.text : "More Details",}
             )}
         ></Stack.Screen>
