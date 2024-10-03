@@ -10,7 +10,12 @@ export default function GoalItem({goalObj, deleteHandler, goalDetailshandler}) {
         <View key={goalObj.id}  style={styles.textContainer}>
             <Text style={styles.text}>{goalObj.text}</Text>
             <Button title='X' color="#292929" onPress={handleDelete}/>
-            <Button title='i' color="#292929" onPress={goalDetailshandler}/>
+            <Button 
+                title='i' 
+                color="#292929" 
+                onPress={() => {
+                    goalDetailshandler(goalObj)
+            }}/>
         </View>
     );
 }

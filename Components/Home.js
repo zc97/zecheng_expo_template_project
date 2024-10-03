@@ -57,8 +57,8 @@ export default function Home({ navigation }) {
     );
   }
 
-  const handleGoalDetails = () => {
-    navigation.navigate('Details')
+  const handleGoalDetails = (pressedGoal) => {
+    navigation.navigate('Details', {pressedGoal})
   }
 
   return (
