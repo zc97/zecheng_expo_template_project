@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Home from './Components/Home'
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,7 +23,18 @@ export default function App() {
           component={GoalDetails} 
           options={({ route }) => (
             // callback function for dynamic header
-            { title: route.params ? route.params.pressedGoal.text : "More Details",}
+            { 
+              title: route.params ? route.params.pressedGoal.text : "More Details",
+              headerRight: () => {
+                return (
+                  <Button 
+                    title='warning' 
+                    onPress={() => {
+                        console.log('warning')
+                    }}
+                  />)
+                },
+            }
             )}
         ></Stack.Screen>
       </Stack.Navigator>
