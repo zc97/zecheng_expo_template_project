@@ -16,11 +16,11 @@ export default function App() {
           name='Home' 
           component={Home} 
           options={{
-            title:"My Home", 
+            title:"All My Goals", 
             headerStyle: { backgroundColor: 'purple'}, 
             headerTintColor: 'white'}}>
         </Stack.Screen>
-        <Stack.Screen name='Details' component={GoalDetails}></Stack.Screen>
+        <Stack.Screen name='Details' component={GoalDetails} options={({ route }) => ({ title: route.params.pressedGoal.text })}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   )
