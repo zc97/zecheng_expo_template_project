@@ -31,15 +31,6 @@ export default function App() {
             // callback function for dynamic header
             {
               title: route.params ? route.params.pressedGoal.text : "More Details",
-              headerRight: () => {
-                return (
-                  <Button
-                    title='warning'
-                    onPress={() => {
-                      console.log('warning')
-                    }}
-                  />)
-              },
             }
           )}
         ></Stack.Screen>
