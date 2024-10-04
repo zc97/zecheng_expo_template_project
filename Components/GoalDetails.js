@@ -1,5 +1,5 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 
 export default function GoalDetails({ navigation, route }) {
     const [isWarning, setIsWarning] = useState(false)
@@ -8,18 +8,20 @@ export default function GoalDetails({ navigation, route }) {
         navigation.push('Details')
     }
 
-    navigation.setOptions({
-        headerRight: () => {
-            return (
-              <Button
-                title='warning'
-                onPress={() => {
-                    setIsWarning(true)
-                    navigation.setOptions({title: 'Warning!'})
-                }}
-              />)
-          }
-    })
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => {
+                return (
+                    <Button
+                        title='warning'
+                        onPress={() => {
+                            setIsWarning(true)
+                            navigation.setOptions({ title: 'Warning!' })
+                        }}
+                    />)
+            }
+        })
+    }, [navigation])
 
     return (
         <View>
