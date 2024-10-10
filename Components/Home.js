@@ -13,7 +13,6 @@ export default function Home({ navigation }) {
   const [goals, setGoals] = useState([])
 
   const handleInputData = (textContent) => {
-    // setReceivedText(textContent)
     setInputVisibility(false)
     setGoals(goals => [...goals, {text: textContent, id: Math.random()}])
   }
@@ -57,10 +56,6 @@ export default function Home({ navigation }) {
     );
   }
 
-  const handleGoalDetails = (pressedGoal) => {
-    navigation.navigate('Details', {pressedGoal})
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
@@ -71,16 +66,17 @@ export default function Home({ navigation }) {
       </View>
       <View style={styles.bottomView}>
         <FlatList data={goals} renderItem={({item}) => {
-            // console.log(item);
             return (
-              <GoalItem goalObj={item} deleteHandler={headleDelete} goalDetailshandler={handleGoalDetails}></GoalItem>
+              <GoalItem goalObj={item} deleteHandler={headleDelete}></GoalItem>
             );
           }}
+
           ListEmptyComponent={
             <View style={styles.headerContainer}>
               <Text style={styles.headerText}>No goals to show</Text>
             </View>
           }
+
           ListHeaderComponent={goals.length > 0 ? 
             <View style={styles.headerContainer}>
               <Text style={styles.headerText}>My Goals</Text> 
