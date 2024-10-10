@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		padding: 5,
 		margin: 5,
-		backgroundColor: 'white',
+		backgroundColor: 'purple',
 		alignItems: 'center',
 	},
 	defultPressedStyle: {

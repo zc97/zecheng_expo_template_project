@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Button, Pressable } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import PressableButton from './PressableButton';
-import { MaterialIcons } from '@expo/vector-icons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function GoalItem({ goalObj, deleteHandler }) {
 	const navigation = useNavigation()
@@ -27,8 +27,8 @@ export default function GoalItem({ goalObj, deleteHandler }) {
 					componentStyle={styles.componentStyle}
 					componentPressedStyle={styles.componentPressedStyle}
 				>
-					<Text style={styles.deleteText}>X</Text>
-					{/* <MaterialIcons name="delete" size={24} color="white" style={styles.deleteIcon} /> */}
+					<MaterialIcons name="delete" size={24} color="white" />
+					{/* <Text style={styles.deleteText}>X</Text> */}
 				</PressableButton>
 			</Pressable>
 		</View>
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 	},
 	componentStyle: {
-		backgroundColor: 'purple',
+		backgroundColor: 'black',
 	},
 	componentPressedStyle: {
 		backgroundColor: 'white',
