@@ -1,5 +1,6 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react'
+import PressableButton from './PressableButton'
 
 export default function GoalDetails({ navigation, route }) {
 	const [isWarning, setIsWarning] = useState(false)
@@ -18,7 +19,8 @@ export default function GoalDetails({ navigation, route }) {
 							setIsWarning(true)
 							navigation.setOptions({ title: 'Warning!' })
 						}}
-					/>)
+					/>
+				)
 			}
 		})
 	}, [navigation])
@@ -31,7 +33,12 @@ export default function GoalDetails({ navigation, route }) {
 			) : (
 				<Text style={{ color: isWarning ? 'red' : 'black' }}> More Details</Text>
 			)}
-			<Button title='More Details' onPress={() => moreDetails()}></Button>
+			{/* <Button title='More Details' onPress={() => moreDetails()}></Button> */}
+			<PressableButton
+				pressedFunction={() => moreDetails()}
+			>
+				<Text> More Details </Text>
+			</PressableButton>
 		</View>
 	)
 }
