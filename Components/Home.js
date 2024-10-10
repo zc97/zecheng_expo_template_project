@@ -116,6 +116,7 @@ const styles = StyleSheet.create({
   bottomView: {
     flex: 4,
     backgroundColor: "#fcf",
+    alignItems: "center",
   },
   headerContainer: {
     marginVertical: 20,
