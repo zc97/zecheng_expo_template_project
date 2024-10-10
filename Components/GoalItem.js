@@ -2,15 +2,10 @@ import { View, Text, StyleSheet, Button, Pressable } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
 import PressableButton from './PressableButton';
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
-
+import { MaterialIcons } from '@expo/vector-icons';
 
 export default function GoalItem({ goalObj, deleteHandler }) {
 	const navigation = useNavigation()
-
-	// function handleDelete() {
-	// 	deleteHandler(goalObj.id);
-	// }
 
 	return (
 		<View key={goalObj.id} style={styles.textContainer}>
@@ -25,14 +20,15 @@ export default function GoalItem({ goalObj, deleteHandler }) {
 				]}}
 			>
 				<Text style={styles.text}>{goalObj.text}</Text>
-				{/* <Button title='X' color="#292929" onPress={handleDelete} /> */}
 				<PressableButton 
 					pressedFunction={() => {
 						deleteHandler(goalObj.id)
 					}}
 					componentStyle={styles.componentStyle}
+					componentPressedStyle={styles.componentPressedStyle}
 				>
 					<Text style={styles.deleteText}>X</Text>
+					{/* <MaterialIcons name="delete" size={24} color="white" style={styles.deleteIcon} /> */}
 				</PressableButton>
 			</Pressable>
 		</View>
@@ -62,10 +58,10 @@ const styles = StyleSheet.create({
 		backgroundColor: 'white',
 	},
 	componentStyle: {
-		backgroundColor: 'black',
-		borderRadius: 5,
-		padding: 5,
-		margin: 5,
+		backgroundColor: 'purple',
+	},
+	componentPressedStyle: {
+		backgroundColor: 'white',
 	},
 	deleteText: {
 		fontSize: 20,
