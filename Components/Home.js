@@ -65,9 +65,9 @@ export default function Home({ navigation }) {
         <Button title="Add a goal" onPress={() => {setInputVisibility(true)}}></Button>
       </View>
       <View style={styles.bottomView}>
-        <FlatList data={goals} renderItem={({item}) => {
+        <FlatList data={goals} renderItem={({item, separators}) => {
             return (
-              <GoalItem goalObj={item} deleteHandler={headleDelete}></GoalItem>
+              <GoalItem goalObj={item} deleteHandler={headleDelete} itemSeparator={separators}></GoalItem>
             );
           }}
 
@@ -90,6 +90,7 @@ export default function Home({ navigation }) {
             </View> 
             : null
           }
+
           ItemSeparatorComponent={<View style={styles.goalSeparator} />}
         >
         </FlatList>
