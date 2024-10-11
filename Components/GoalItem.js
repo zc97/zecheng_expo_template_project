@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import PressableButton from './PressableButton';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-export default function GoalItem({ goalObj, deleteHandler }) {
+export default function GoalItem({ goalObj, deleteHandler, itemSeparator }) {
 	const navigation = useNavigation()
 
   const handleLongPress = () => {
@@ -32,6 +32,8 @@ export default function GoalItem({ goalObj, deleteHandler }) {
 						navigation.navigate('Details', { pressedGoal: goalObj })
 						}}
 				onLongPress={handleLongPress}
+				onPressIn={() => itemSeparator.highlight()}
+				onPressOut={() => itemSeparator.unhighlight()}
 				android_ripple = {{ color: 'white', borderless: true }}
 				style = {({ pressed }) => {return [
 					styles.horizontal,
@@ -63,15 +65,16 @@ const styles = StyleSheet.create({
 	textContainer: {
 		backgroundColor: "#aaa",
 		borderRadius: 5,
-		// marginTop: 20,
-		// marginHorizontal: 30,
 		flexDirection: "row",
 		alignItems: "center",
 		justifyContent: "center",
 	},
 	horizontal: {
+		flex: 1,
 		flexDirection: 'row',
 		alignItems: 'center',
+		justifyContent: 'center',
+		padding: 10,
 	},
 	pressedStyle: {
 		backgroundColor: 'white',
