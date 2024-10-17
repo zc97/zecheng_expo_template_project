@@ -65,9 +65,16 @@ export default function Home({ navigation }) {
         <Button title="Add a goal" onPress={() => {setInputVisibility(true)}}></Button>
       </View>
       <View style={styles.bottomView}>
-        <FlatList data={goals} renderItem={({item}) => {
+        <FlatList
+          style={styles.scrollView}
+          data={goals}
+
+          ItemSeparatorComponent={({highlighted}) => 
+            (<View style={[styles.goalSeparator, highlighted && styles.separatorHighlighted]}/>)}
+
+          renderItem={({item, separators}) => {
             return (
-              <GoalItem goalObj={item} deleteHandler={headleDelete}></GoalItem>
+              <GoalItem goalObj={item} deleteHandler={headleDelete} itemSeparator={separators}></GoalItem>
             );
           }}
 
@@ -79,7 +86,7 @@ export default function Home({ navigation }) {
 
           ListHeaderComponent={goals.length > 0 ? 
             <View style={styles.headerContainer}>
-              <Text style={styles.headerText}>My Goals</Text> 
+              <Text style={styles.headerText}>My Goals</Text>
             </View>
             : null
           }
@@ -90,7 +97,6 @@ export default function Home({ navigation }) {
             </View> 
             : null
           }
-          ItemSeparatorComponent={<View style={styles.goalSeparator} />}
         >
         </FlatList>
       </View>
@@ -105,7 +111,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   scrollView: {
-    alignItems: "center",
+    // alignItems: "center",
+    flexDirection: "row",
     marginHorizontal: 20,
   },
   topView: {
@@ -135,6 +142,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
     marginHorizontal: 20,
     marginVertical: 10,
-
-  }
+  },
+  separatorHighlighted: {
+    backgroundColor: 'white',
+  },
 });
