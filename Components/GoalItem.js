@@ -1,42 +1,70 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, Pressable } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
+import PressableButton from './PressableButton';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
-export default function GoalItem({goalObj, deleteHandler}) {
-    const navigation = useNavigation()
+export default function GoalItem({ goalObj, deleteHandler }) {
+	const navigation = useNavigation()
 
-    function handleDelete() {
-        deleteHandler(goalObj.id);
-    }
-    
-    return (
-        <View key={goalObj.id}  style={styles.textContainer}>
-            <Text style={styles.text}>{goalObj.text}</Text>
-            <Button title='X' color="#292929" onPress={handleDelete}/>
-            <Button 
-                title='i' 
-                color="#292929" 
-                onPress={() => {
-                    navigation.navigate('Details', {pressedGoal: goalObj})
-                }}
-            />
-        </View>
-    );
+	return (
+		<View key={goalObj.id} style={styles.textContainer}>
+			<Pressable 
+				onPress={() => {
+						navigation.navigate('Details', { pressedGoal: goalObj })
+						}}
+				android_ripple = {{ color: 'white', borderless: true }}
+				style = {({ pressed }) => {return [
+					styles.horizontal,
+					pressed ? styles.pressedStyle : null,
+				]}}
+			>
+				<Text style={styles.text}>{goalObj.text}</Text>
+				<PressableButton 
+					pressedFunction={() => {
+						deleteHandler(goalObj.id)
+					}}
+					componentStyle={styles.componentStyle}
+					componentPressedStyle={styles.componentPressedStyle}
+				>
+					<MaterialIcons name="delete" size={24} color="white" />
+					{/* <Text style={styles.deleteText}>X</Text> */}
+				</PressableButton>
+			</Pressable>
+		</View>
+	);
 }
 
 const styles = StyleSheet.create({
-    text: {
-        color: "purple",
-        padding: 15,
-        fontSize: 20,
-      },
-      textContainer: {
-        backgroundColor: "#aaa",
-        borderRadius: 5,
-        // marginTop: 20,
-        marginHorizontal: 30,
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-      },
+	text: {
+		color: "purple",
+		padding: 15,
+		fontSize: 20,
+	},
+	textContainer: {
+		backgroundColor: "#aaa",
+		borderRadius: 5,
+		// marginTop: 20,
+		marginHorizontal: 30,
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	horizontal: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	pressedStyle: {
+		backgroundColor: 'white',
+	},
+	componentStyle: {
+		backgroundColor: 'black',
+	},
+	componentPressedStyle: {
+		backgroundColor: 'white',
+	},
+	deleteText: {
+		fontSize: 20,
+		color: 'white',
+	}
 });
