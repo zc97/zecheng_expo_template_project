@@ -3,18 +3,41 @@ import { StatusBar } from 'expo-status-bar';
 import { Button, StyleSheet, Text, TextInput, View, SafeAreaView, Alert, ScrollView, FlatList } from 'react-native';
 import Header from './Header';
 import Input from './Input';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import GoalItem from './GoalItem';
+import { writeToDB, deleteFromDB, deleteAllFromDB } from '../Firebase/firestoreHelper';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { database } from '../Firebase/firebaseSetup';
 
 export default function Home({ navigation }) {
   const appName = "Zecheng's App";
   const [inputVisibility, setInputVisibility] = useState(false);
   const [receivedText, setReceivedText] = useState("");
   const [goals, setGoals] = useState([])
+  const collectionName  = "goals"
 
-  const handleInputData = (textContent) => {
+  useEffect(() => {
+    console.log(database);
+    // querySnapshot is a list of documentSnapshots
+    onSnapshot(collection(database, collectionName)), (querySnapshot) => {
+      let goalsArray = [];
+      querySnapshot.forEach((docSnapshot) => {
+        // populate an array
+        goalsArray.push({ ...docSnapshot.data(), id: docSnapshot.id});
+        console.log(docSnapshot.data());
+        console.log(docSnapshot.id);
+      });
+      // set to the goals array
+      setGoals(goalsArray);
+    }
+  }, []);
+
+  async function handleInputData(textContent){
     setInputVisibility(false)
-    setGoals(goals => [...goals, {text: textContent, id: Math.random()}])
+
+    let newGoal = {text: textContent}
+    await writeToDB(newGoal, collectionName)
+    // setGoals(goals => [...goals, {text: textContent, id: Math.random()}])
   }
 
   const handleCancel = () => {
@@ -31,15 +54,17 @@ export default function Home({ navigation }) {
   
   const headleDelete = (deletedId) => {
     // console.log("goal deleted")
-    setGoals((prevGoals) => {
-      return prevGoals.filter((goalObj) => {
-        return goalObj.id != deletedId;
-      });
-    });
+    // setGoals((prevGoals) => {
+    //   return prevGoals.filter((goalObj) => {
+    //     return goalObj.id != deletedId;
+    //   });
+    // });
+    deleteFromDB(deletedId, collectionName);
   }
 
   const handleDeleteAll = () => {
-    setGoals(goals => []);
+    deleteAllFromDB(collectionName);
+    // setGoals(goals => []);
   }
 
   const handleDeleteAllAlert = () => {
