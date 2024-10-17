@@ -2,9 +2,11 @@ import { Button, StyleSheet, Text, View } from 'react-native'
 import React, { useState, useLayoutEffect } from 'react'
 import PressableButton from './PressableButton'
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { setGoalWarning } from '../Firebase/firestoreHelper';
 
 export default function GoalDetails({ navigation, route }) {
 	const [isWarning, setIsWarning] = useState(false)
+	const goalId = route.params.pressedGoal.id
 
 	const moreDetails = () => {
 		navigation.push('Details')
@@ -14,16 +16,10 @@ export default function GoalDetails({ navigation, route }) {
 		navigation.setOptions({
 			headerRight: () => {
 				return (
-					// <Button
-					// 	title='warning'
-					// 	onPress={() => {
-					// 		setIsWarning(true)
-					// 		navigation.setOptions({ title: 'Warning!' })
-					// 	}}
-					// />
 					<PressableButton
 						pressedFunction={() => {
 							setIsWarning(true)
+							setGoalWarning(goalId)
 							navigation.setOptions({ title: 'Warning!' })
 						}}
 						componentStyle={{backgroundColor: 'white'}}
