@@ -5,8 +5,10 @@ import Header from './Header';
 import Input from './Input';
 import { useState } from 'react';
 import GoalItem from './GoalItem';
+import { app } from '../Firebase/firebaseSetup';
 
 export default function Home({ navigation }) {
+  console.log(app)
   const appName = "Zecheng's App";
   const [inputVisibility, setInputVisibility] = useState(false);
   const [receivedText, setReceivedText] = useState("");
