@@ -6,7 +6,7 @@ import Input from './Input';
 import { useState, useEffect } from 'react';
 import GoalItem from './GoalItem';
 import { writeToDB, deleteFromDB, deleteAllFromDB } from '../Firebase/firestoreHelper';
-import { collection, onSnapshot } from 'firebase/firestore';
+import { collection, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { database } from '../Firebase/firebaseSetup';
 
 export default function Home({ navigation }) {
@@ -17,11 +17,10 @@ export default function Home({ navigation }) {
   const collectionName  = "goals"
 
   useEffect(() => {
-    console.log(database);
     // querySnapshot is a list of documentSnapshots
-    onSnapshot(collection(database, collectionName)), (querySnapshot) => {
+    const unsubscribe = onSnapshot(collection(database, collectionName), (snapshot) => {
       let goalsArray = [];
-      querySnapshot.forEach((docSnapshot) => {
+      snapshot.forEach((docSnapshot) => {
         // populate an array
         goalsArray.push({ ...docSnapshot.data(), id: docSnapshot.id});
         console.log(docSnapshot.data());
@@ -29,7 +28,8 @@ export default function Home({ navigation }) {
       });
       // set to the goals array
       setGoals(goalsArray);
-    }
+    });
+    return () => unsubscribe()
   }, []);
 
   async function handleInputData(textContent){
