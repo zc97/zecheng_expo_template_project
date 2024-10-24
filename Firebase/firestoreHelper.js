@@ -12,11 +12,19 @@ export async function writeToDB(data, collectionName) {
 
 export async function deleteFromDB(deleteId, collectionName) { 
   try {
-    await deleteDoc(doc(database, collectionName, deleteId));
+    const docRef = doc(database, collectionName, deleteId);
+    await deleteDoc(docRef);
+    
+    const subCollections = await getDocs(collection(database, collectionName));
+    for (const subCollection of subCollections.docs) {
+      await deleteCollection(collection(database, subCollection.id));
+    }
+    // await deleteDoc(docRef);
   } catch (err) {
     console.error("Delete from DB: ", err);
   }
 }
+
 
 export async function deleteAllFromDB(collectionName) {
   try {
