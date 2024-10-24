@@ -1,7 +1,8 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { writeToDB } from '../Firebase/firestoreHelper';
 
-export default function GoalUsers() {
+export default function GoalUsers(goalId) {
 
   const [users, setUsers] = useState([]);
 
@@ -18,6 +19,9 @@ export default function GoalUsers() {
         setUsers(data.map((user) => {
           return user.name
         }))
+        data.forEach((user) => {
+          writeToDB(user, `goals/${goalId}/users`);
+        });
       } catch (error) { 
         console.error(error) 
       }
@@ -32,7 +36,6 @@ export default function GoalUsers() {
       <FlatList
           style={styles.scrollView}
           data={users}
-
           renderItem={({item, separators}) => {
             return (
               <Text> {item} </Text>
