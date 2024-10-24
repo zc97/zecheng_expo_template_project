@@ -40,3 +40,17 @@ export async function setGoalWarning(goalId) {
     console.error('Update document warning field: ', err);
   }
 }
+
+
+export async function realAllDocs(collectionName) {
+  try {
+    const querySnapshot = await getDocs(collection(database, collectionName));
+    let newArray = []; 
+    querySnapshot.forEach((docSnapshot) => {
+      newArray.push({ ...docSnapshot.data()});
+    });
+    return newArray;
+  } catch (err) {
+    console.error("Read all docs: ", err);
+  }
+}
