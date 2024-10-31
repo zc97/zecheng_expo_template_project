@@ -1,5 +1,5 @@
 import { Button, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import Home from './Components/Home'
 import { NavigationContainer } from '@react-navigation/native';
@@ -7,6 +7,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import GoalDetails from './Components/GoalDetails';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './Firebase/firebaseSetup';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +39,17 @@ const AppStack = <>
 export default function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
+  useEffect(() => {
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setIsUserLoggedIn(true);
+        } else {
+          setIsUserLoggedIn(false);
+        }
+      });
+    }
+    , []);
+
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -48,7 +61,7 @@ export default function App() {
           headerTintColor: 'white',
         }}
       >
-      {isUserLoggedIn ? AppStack : AuthStack}
+        {isUserLoggedIn ? AppStack : AuthStack}
       </Stack.Navigator>
     </NavigationContainer>
   )
