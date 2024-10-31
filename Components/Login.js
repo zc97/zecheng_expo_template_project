@@ -1,14 +1,24 @@
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
 import React from 'react'
 import { useState } from 'react'
+import { auth } from '../Firebase/firebaseSetup';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function Login({navigation}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleLogin = () => {
-    // Handle login logic here
-    console.log('Login with:', email, password);
+  const handleLogin = async () => {
+    try {
+      if (email.length === 0 || password.length === 0) {
+        Alert.alert('Please fill in all fields');
+        return;
+      }
+      const userCred = await signInWithEmailAndPassword(auth, email, password)
+      console.log(userCred);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const signupHandler = () => {
