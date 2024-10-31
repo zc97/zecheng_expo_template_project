@@ -1,15 +1,36 @@
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native'
+import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native'
 import React from 'react'
 import { useState } from 'react'
+import { auth } from '../Firebase/firebaseSetup';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function Signup({ navigation }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const handleSignup = () => {
-    // Handle signup logic here
-    console.log('Signup with:', email, password, confirmPassword);
+  const handleSignup = async () => {
+    try {
+      if (password !== confirmPassword) {
+        Alert.alert('Passwords do not match');
+        return;
+      }
+      if (email.length === 0 || password.length === 0 || confirmPassword.length === 0) {
+        Alert.alert('Please fill in all fields');
+        return;
+      }
+      const userCred = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(userCred);
+    } catch (error) { 
+      console.log(error);
+      if (error.code === 'auth/email-already-in-use') {
+        Alert.alert('Email already in use');
+        return;
+      } else if (error.code === 'auth/weak-password') {
+        Alert.alert('Password is too weak, please make sure at least 6 characters');
+        return;
+      }
+    }
   };
 
   loginHandler = () => {
