@@ -54,7 +54,7 @@ const AppStack = <>
         title: "Profile",
         headerRight: () => {
           return (
-            <PressableButton title="Signout" pressedFunction={signOut(auth)} >
+            <PressableButton title="Signout" pressedFunction={() => signOut(auth)} >
               <Ionicons name="exit-outline" size={24} color="black" />
             </PressableButton>
           );
