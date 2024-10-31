@@ -9,6 +9,9 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './Firebase/firebaseSetup';
+import Profile from './Components/Profile';
+import PressableButton from './Components/PressableButton';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,8 +24,15 @@ const AppStack = <>
   <Stack.Screen
     name='Home'
     component={Home}
-    options={{
+    options={ ({ navigation }) => { return {
       title: "All My Goals",
+      headerRight: () => {
+        return (
+          <PressableButton title="Profile" pressedFunction={() => navigation.navigate('Profile')}> 
+            <Ionicons name="person" size={24} color="white" />
+          </PressableButton>
+        );}
+    }
     }}>
   </Stack.Screen>
   <Stack.Screen name='Details'
@@ -34,6 +44,7 @@ const AppStack = <>
       }
     )}
   ></Stack.Screen>
+  <Stack.Screen name='Profile' component={Profile}></Stack.Screen>
 </>
 
 export default function App() {

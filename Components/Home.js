@@ -8,6 +8,7 @@ import GoalItem from './GoalItem';
 import { writeToDB, deleteFromDB, deleteAllFromDB } from '../Firebase/firestoreHelper';
 import { collection, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { database } from '../Firebase/firebaseSetup';
+import Profile from './Profile';
 
 export default function Home({ navigation }) {
   const appName = "Zecheng's App";
