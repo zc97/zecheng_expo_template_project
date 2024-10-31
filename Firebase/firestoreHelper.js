@@ -13,13 +13,12 @@ export async function writeToDB(data, collectionName) {
 export async function deleteFromDB(deleteId, collectionName) { 
   try {
     const docRef = doc(database, collectionName, deleteId);
-    await deleteDoc(docRef);
     
     const subCollections = await getDocs(collection(database, collectionName));
     for (const subCollection of subCollections.docs) {
-      await deleteCollection(collection(database, subCollection.id));
+      await deleteDoc(docRef);
     }
-    // await deleteDoc(docRef);
+    await deleteDoc(docRef);
   } catch (err) {
     console.error("Delete from DB: ", err);
   }
