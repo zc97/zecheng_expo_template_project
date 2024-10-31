@@ -12,11 +12,18 @@ export async function writeToDB(data, collectionName) {
 
 export async function deleteFromDB(deleteId, collectionName) { 
   try {
-    await deleteDoc(doc(database, collectionName, deleteId));
+    const docRef = doc(database, collectionName, deleteId);
+    
+    const subCollections = await getDocs(collection(database, collectionName));
+    for (const subCollection of subCollections.docs) {
+      await deleteDoc(docRef);
+    }
+    await deleteDoc(docRef);
   } catch (err) {
     console.error("Delete from DB: ", err);
   }
 }
+
 
 export async function deleteAllFromDB(collectionName) {
   try {
@@ -38,5 +45,19 @@ export async function setGoalWarning(goalId) {
     });
   } catch (err) {
     console.error('Update document warning field: ', err);
+  }
+}
+
+
+export async function realAllDocs(collectionName) {
+  try {
+    const querySnapshot = await getDocs(collection(database, collectionName));
+    let newArray = []; 
+    querySnapshot.forEach((docSnapshot) => {
+      newArray.push({ ...docSnapshot.data()});
+    });
+    return newArray;
+  } catch (err) {
+    console.error("Read all docs: ", err);
   }
 }

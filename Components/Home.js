@@ -23,8 +23,8 @@ export default function Home({ navigation }) {
       snapshot.forEach((docSnapshot) => {
         // populate an array
         goalsArray.push({ ...docSnapshot.data(), id: docSnapshot.id});
-        console.log(docSnapshot.data());
-        console.log(docSnapshot.id);
+        // console.log(docSnapshot.data());
+        // console.log(docSnapshot.id);
       });
       // set to the goals array
       setGoals(goalsArray);

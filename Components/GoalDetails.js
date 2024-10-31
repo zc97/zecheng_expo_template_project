@@ -3,10 +3,12 @@ import React, { useState, useLayoutEffect } from 'react'
 import PressableButton from './PressableButton'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { setGoalWarning } from '../Firebase/firestoreHelper';
+import GoalUsers from './GoalUsers';
 
 export default function GoalDetails({ navigation, route }) {
 	const [isWarning, setIsWarning] = useState(false)
 	const goalId = route.params.pressedGoal.id
+	
 
 	const moreDetails = () => {
 		navigation.push('Details')
@@ -45,6 +47,7 @@ export default function GoalDetails({ navigation, route }) {
 			>
 				<Text> More Details </Text>
 			</PressableButton>
+			{route.params && <GoalUsers goalId = {route.params.pressedGoal.id}/>}
 		</View>
 	)
 }
