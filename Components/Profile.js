@@ -5,6 +5,7 @@ import { getAuth } from "firebase/auth";
 
 export default function Profile() {
   const [user, setUser] = useState(null);
+  
   useEffect(() => {
     const auth = getAuth();
     setUser(auth.currentUser.email);

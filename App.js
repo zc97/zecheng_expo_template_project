@@ -7,7 +7,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import GoalDetails from './Components/GoalDetails';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './Firebase/firebaseSetup';
 import Profile from './Components/Profile';
 import PressableButton from './Components/PressableButton';
@@ -24,15 +24,17 @@ const AppStack = <>
   <Stack.Screen
     name='Home'
     component={Home}
-    options={ ({ navigation }) => { return {
-      title: "All My Goals",
-      headerRight: () => {
-        return (
-          <PressableButton title="Profile" pressedFunction={() => navigation.navigate('Profile')}> 
-            <Ionicons name="person" size={24} color="white" />
-          </PressableButton>
-        );}
-    }
+    options={({ navigation }) => {
+      return {
+        title: "All My Goals",
+        headerRight: () => {
+          return (
+            <PressableButton title="Profile" pressedFunction={() => navigation.navigate('Profile')}>
+              <Ionicons name="person" size={24} color="white" />
+            </PressableButton>
+          );
+        }
+      }
     }}>
   </Stack.Screen>
   <Stack.Screen name='Details'
@@ -44,21 +46,38 @@ const AppStack = <>
       }
     )}
   ></Stack.Screen>
-  <Stack.Screen name='Profile' component={Profile}></Stack.Screen>
+  <Stack.Screen
+    name='Profile'
+    component={Profile}
+    options={({ navigation }) => {
+      return {
+        title: "Profile",
+        headerRight: () => {
+          return (
+            <PressableButton title="Signout" pressedFunction={signOut(auth)} >
+              <Ionicons name="exit-outline" size={24} color="black" />
+            </PressableButton>
+          );
+        }
+      }
+    }}
+  >
+  </Stack.Screen>
 </>
 
 export default function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
   useEffect(() => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          setIsUserLoggedIn(true);
-        } else {
-          setIsUserLoggedIn(false);
-        }
-      });
-    }
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setIsUserLoggedIn(true);
+      } else {
+        setIsUserLoggedIn(false);
+      }
+    });
+    return () => { unsubscribe() };
+  }
     , []);
 
   return (
