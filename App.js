@@ -4,6 +4,8 @@ import Home from './Components/Home'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import GoalDetails from './Components/GoalDetails';
+import Login from './Components/Login';
+import Signup from './Components/Signup';
 
 const Stack = createNativeStackNavigator();
 
@@ -11,6 +13,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator
+        initialRouteName='Signup'
         screenOptions={{
           headerStyle: {
             backgroundColor: 'purple',
@@ -34,6 +37,8 @@ export default function App() {
             }
           )}
         ></Stack.Screen>
+        <Stack.Screen name='Login' component={Login}></Stack.Screen>
+        <Stack.Screen name='Signup' component={Signup}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   )
