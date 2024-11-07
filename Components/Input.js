@@ -7,18 +7,24 @@ import ImageManager from './ImageManager';
 export default function Input({isFocus, inputHandler, cancelHandler, inputVisibility}) {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
+    const [ImageUri, setImageUri] = useState("");
     // const [clearInputText, setClearInputText] = useState(false);
     
 
     const handleConfirm = () => {
         console.log(text)
-        inputHandler(text)
+        inputHandler({text, ImageUri})
         setText("")
     }
 
     const handleCancel = () => {
         cancelHandler()
         setText("")
+    }
+
+    const receiveImageUri = (imageUri) => {
+        console.log('image:', imageUri)
+        setImageUri(imageUri)
     }
 
     return (
@@ -61,7 +67,7 @@ export default function Input({isFocus, inputHandler, cancelHandler, inputVisibi
                     </Text>
                 )}
 
-                <ImageManager></ImageManager>
+                <ImageManager handleImageUri={receiveImageUri}></ImageManager>
                 
                 <View style={styles.buttonContainer}>
                     <Button title="Cancel" onPress={handleCancel}></Button>

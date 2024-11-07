@@ -36,13 +36,12 @@ export default function Home({ navigation }) {
     return () => unsubscribe()
   }, []);
 
-  async function handleInputData(textContent) {
+  async function handleInputData(data) {
     setInputVisibility(false)
-
-    let newGoal = { text: textContent }
+    let newGoal = { text: data }
     newGoal = { ...newGoal, owner: auth.currentUser.uid }
-    await writeToDB(newGoal, collectionName)
-    // setGoals(goals => [...goals, {text: textContent, id: Math.random()}])
+    // await writeToDB(newGoal, collectionName)
+    // setGoals(goals => [...goals, {text: textContent, id: Math.random()}]]
   }
 
   const handleCancel = () => {
