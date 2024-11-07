@@ -6,8 +6,8 @@ import Input from './Input';
 import { useState, useEffect } from 'react';
 import GoalItem from './GoalItem';
 import { writeToDB, deleteFromDB, deleteAllFromDB } from '../Firebase/firestoreHelper';
-import { collection, doc, getDoc, onSnapshot } from 'firebase/firestore';
-import { database } from '../Firebase/firebaseSetup';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { database, auth } from '../Firebase/firebaseSetup';
 import Profile from './Profile';
 
 export default function Home({ navigation }) {
@@ -15,28 +15,33 @@ export default function Home({ navigation }) {
   const [inputVisibility, setInputVisibility] = useState(false);
   const [receivedText, setReceivedText] = useState("");
   const [goals, setGoals] = useState([])
-  const collectionName  = "goals"
+  const collectionName = "goals"
 
   useEffect(() => {
     // querySnapshot is a list of documentSnapshots
-    const unsubscribe = onSnapshot(collection(database, collectionName), (snapshot) => {
+    const q = query(collection(database, collectionName), where("owner", "==", auth.currentUser.uid));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
       let goalsArray = [];
       snapshot.forEach((docSnapshot) => {
         // populate an array
-        goalsArray.push({ ...docSnapshot.data(), id: docSnapshot.id});
-        // console.log(docSnapshot.data());
-        // console.log(docSnapshot.id);
-      });
+        goalsArray.push({ ...docSnapshot.data(), id: docSnapshot.id });
+      },
+        (error) => {
+          console.log("Error in onSnapshot: ", error);
+          Alert.alert(error.message);
+        }
+      );
       // set to the goals array
       setGoals(goalsArray);
     });
     return () => unsubscribe()
   }, []);
 
-  async function handleInputData(textContent){
+  async function handleInputData(textContent) {
     setInputVisibility(false)
 
-    let newGoal = {text: textContent}
+    let newGoal = { text: textContent }
+    newGoal = { ...newGoal, owner: auth.currentUser.uid }
     await writeToDB(newGoal, collectionName)
     // setGoals(goals => [...goals, {text: textContent, id: Math.random()}])
   }
@@ -45,14 +50,15 @@ export default function Home({ navigation }) {
     Alert.alert('Cancel', 'Do you want to cancel the current input of your goal?', [
       {
         text: 'Cancel',
-        style: 'cancel', 
+        style: 'cancel',
       },
       {
-        text: 'OK', 
-        onPress: () => setInputVisibility(false)},
+        text: 'OK',
+        onPress: () => setInputVisibility(false)
+      },
     ]);
   }
-  
+
   const headleDelete = (deletedId) => {
     // console.log("goal deleted")
     // setGoals((prevGoals) => {
@@ -86,19 +92,19 @@ export default function Home({ navigation }) {
     <SafeAreaView style={styles.container}>
       <View style={styles.topView}>
         <StatusBar style="auto" />
-        <Header name={appName}/>
+        <Header name={appName} />
         <Input ifFocus={true} inputHandler={handleInputData} cancelHandler={handleCancel} inputVisibility={inputVisibility} />
-        <Button title="Add a goal" onPress={() => {setInputVisibility(true)}}></Button>
+        <Button title="Add a goal" onPress={() => { setInputVisibility(true) }}></Button>
       </View>
       <View style={styles.bottomView}>
         <FlatList
           style={styles.scrollView}
           data={goals}
 
-          ItemSeparatorComponent={({highlighted}) => 
-            (<View style={[styles.goalSeparator, highlighted && styles.separatorHighlighted]}/>)}
+          ItemSeparatorComponent={({ highlighted }) =>
+            (<View style={[styles.goalSeparator, highlighted && styles.separatorHighlighted]} />)}
 
-          renderItem={({item, separators}) => {
+          renderItem={({ item, separators }) => {
             return (
               <GoalItem goalObj={item} deleteHandler={headleDelete} itemSeparator={separators}></GoalItem>
             );
@@ -110,17 +116,17 @@ export default function Home({ navigation }) {
             </View>
           }
 
-          ListHeaderComponent={goals.length > 0 ? 
+          ListHeaderComponent={goals.length > 0 ?
             <View style={styles.headerContainer}>
               <Text style={styles.headerText}>My Goals</Text>
             </View>
             : null
           }
 
-          ListFooterComponent={goals.length > 0 ? 
+          ListFooterComponent={goals.length > 0 ?
             <View style={styles.footerContainer}>
               <Button title="Delete All" onPress={handleDeleteAllAlert} />
-            </View> 
+            </View>
             : null
           }
         >
