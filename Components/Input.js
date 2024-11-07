@@ -7,13 +7,13 @@ import ImageManager from './ImageManager';
 export default function Input({isFocus, inputHandler, cancelHandler, inputVisibility}) {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
-    const [ImageUri, setImageUri] = useState("");
+    const [imageUri, setImageUri] = useState("");
     // const [clearInputText, setClearInputText] = useState(false);
     
 
     const handleConfirm = () => {
         console.log(text)
-        inputHandler({text, ImageUri})
+        inputHandler({text, imageUri})
         setText("")
     }
 

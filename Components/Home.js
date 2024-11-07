@@ -7,7 +7,8 @@ import { useState, useEffect } from 'react';
 import GoalItem from './GoalItem';
 import { writeToDB, deleteFromDB, deleteAllFromDB } from '../Firebase/firestoreHelper';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
-import { database, auth } from '../Firebase/firebaseSetup';
+import { database, auth, storage } from '../Firebase/firebaseSetup';
+import { ref, uploadBytesResumable } from "firebase/storage";
 import Profile from './Profile';
 
 export default function Home({ navigation }) {
@@ -36,9 +37,30 @@ export default function Home({ navigation }) {
     return () => unsubscribe()
   }, []);
 
+  async function handleImageData(uri) {
+    try {
+      // fetch the image from the uri
+      const response = await fetch(uri);
+      if (!response.ok) {
+        throw new Error("Error Happened with Status: " + response.status);
+      }
+      const blob = await response.blob();
+      // upload the image to the storage
+      const imageName = uri.substring(uri.lastIndexOf('/') + 1);
+      const imageRef = ref(storage, `images/${imageName}`)
+      const uploadResult = await uploadBytesResumable(imageRef, blob);
+      console.log("Image uploaded successfully: ", uploadResult);
+    } catch (error) { 
+      console.log("Error in fetching the image: ", error);
+    }
+  }
+
   async function handleInputData(data) {
     setInputVisibility(false)
-    let newGoal = { text: data }
+    if (data.imageUri) {
+      handleImageData(data.imageUri)
+    }
+    let newGoal = { text: data.text }
     newGoal = { ...newGoal, owner: auth.currentUser.uid }
     // await writeToDB(newGoal, collectionName)
     // setGoals(goals => [...goals, {text: textContent, id: Math.random()}]]
