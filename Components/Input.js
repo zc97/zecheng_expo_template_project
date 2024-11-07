@@ -62,7 +62,7 @@ export default function Input({isFocus, inputHandler, cancelHandler, inputVisibi
                 )}
 
                 <ImageManager></ImageManager>
-
+                
                 <View style={styles.buttonContainer}>
                     <Button title="Cancel" onPress={handleCancel}></Button>
                     <Button title="Confirm" 
