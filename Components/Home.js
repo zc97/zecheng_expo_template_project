@@ -25,14 +25,13 @@ export default function Home({ navigation }) {
       snapshot.forEach((docSnapshot) => {
         // populate an array
         goalsArray.push({ ...docSnapshot.data(), id: docSnapshot.id });
-      },
-        (error) => {
-          console.log("Error in onSnapshot: ", error);
-          Alert.alert(error.message);
-        }
-      );
+      });
       // set to the goals array
       setGoals(goalsArray);
+    }, 
+    (error) => {
+      console.log("Error in onSnapshot: ", error);
+      Alert.alert(error.message);
     });
     return () => unsubscribe()
   }, []);

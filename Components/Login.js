@@ -15,7 +15,7 @@ export default function Login({navigation}) {
         return;
       }
       const userCred = await signInWithEmailAndPassword(auth, email, password)
-      console.log(userCred);
+      // console.log(userCred);
     } catch (error) {
       console.log(error);
     }
