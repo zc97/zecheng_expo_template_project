@@ -1,11 +1,14 @@
-import { Alert, Button, StyleSheet, Text, View, Image } from 'react-native'
+import { Alert, Button, StyleSheet, Text, View, Image, Dimensions } from 'react-native'
 import React from 'react'
 import * as Location from 'expo-location'
+import { useNavigation } from '@react-navigation/native';
 
+const screenWidth = Dimensions.get('window').width;
 
 export default function LocationManager() {
   const [location, setLocation] = React.useState(null);
   const [response, requestPermission] = Location.useForegroundPermissions();
+  const navigation = useNavigation();
 
   async function verifyPermisson() {
     try {
@@ -33,9 +36,16 @@ export default function LocationManager() {
       console.log("Error in getting the location: ", error)
     }
   }
+
+  function chooseLocationHandle() {
+    //navigate to the Map.js
+    navigation.navigate('Map');
+  }
+
   return (
     <View>
       <Button title="Locate Me" onPress={locateUserHandler} />
+      <Button title="Let me choose my location" onPress={chooseLocationHandle} />
       {location && 
             <Image source={{ uri: `https://maps.googleapis.com/maps/api/staticmap?center=${location.latitude},${location.longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:L%7C${location.latitude},${location.longitude}&key=${process.env.EXPO_PUBLIC_API_mapKey}` }} style={styles.image} />
 }
@@ -45,7 +55,7 @@ export default function LocationManager() {
 
 const styles = StyleSheet.create({
   image:{
-    width: 100,
-    height: 100
+    width: screenWidth,
+    height: 200
   },
 })
