@@ -11,6 +11,14 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "The app accesses your camera to let you take a pictrue for each goal."
+        }
+      ]
+    ],
     "ios": {
       "supportsTablet": true
     },

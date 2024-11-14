@@ -1,23 +1,30 @@
 import { Button, StyleSheet, Text, TextInput, View, Modal, Image} from 'react-native';
 import React from 'react'
 import { useState } from 'react';
+import ImageManager from './ImageManager';
 
 
 export default function Input({isFocus, inputHandler, cancelHandler, inputVisibility}) {
     const [text, setText] = useState("");
     const [showMessage, setShowMessage] = useState(false);
+    const [imageUri, setImageUri] = useState("");
     // const [clearInputText, setClearInputText] = useState(false);
     
 
     const handleConfirm = () => {
         console.log(text)
-        inputHandler(text)
+        inputHandler({text, imageUri})
         setText("")
     }
 
     const handleCancel = () => {
         cancelHandler()
         setText("")
+    }
+
+    const receiveImageUri = (imageUri) => {
+        console.log('image:', imageUri)
+        setImageUri(imageUri)
     }
 
     return (
@@ -59,6 +66,9 @@ export default function Input({isFocus, inputHandler, cancelHandler, inputVisibi
                         {text.length >= 3 ? 'Thank you' : 'Please type more than 3 characters'}
                     </Text>
                 )}
+
+                <ImageManager handleImageUri={receiveImageUri}></ImageManager>
+                
                 <View style={styles.buttonContainer}>
                     <Button title="Cancel" onPress={handleCancel}></Button>
                     <Button title="Confirm" 
@@ -79,7 +89,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
     modalContainer: {
-        backgroundColor: 'rgba(0,0,0,0.3)',
+        backgroundColor: 'rgba(0,0,0,0.7)',
         alignItems: 'center',
         borderRadius: 5,
         padding: 20
