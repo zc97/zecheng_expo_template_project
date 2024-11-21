@@ -11,6 +11,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from './Firebase/firebaseSetup';
 import Profile from './Components/Profile';
 import PressableButton from './Components/PressableButton';
+import Map from './Components/Map';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const Stack = createNativeStackNavigator();
@@ -61,6 +62,11 @@ const AppStack = <>
         }
       }
     }}
+  >
+  </Stack.Screen>
+  <Stack.Screen
+    name='Map'
+    component={Map}
   >
   </Stack.Screen>
 </>

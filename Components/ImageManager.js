@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker'
 export default function ImageManager({handleImageUri}) {
   const [response, requestPermission] = ImagePicker.useCameraPermissions();
   const [imageUri, setImageUri] = React.useState(null);
+  
   async function verifyPermisson() {
     // check if user has granted permission return true or false
     // else ask for permission
@@ -18,6 +19,7 @@ export default function ImageManager({handleImageUri}) {
       console.log("Error in requestCameraPermissionsAsync: ", error)
     }
   }
+
   async function takeImageHandler() {
     try {
       // call verifyPermisson() to check if user has granted permission
