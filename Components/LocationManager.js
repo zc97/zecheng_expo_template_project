@@ -2,7 +2,7 @@ import { Alert, Button, StyleSheet, Text, View, Image, Dimensions } from 'react-
 import React, { useEffect } from 'react'
 import * as Location from 'expo-location'
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { updateDB } from '../Firebase/firestoreHelper';
+import { updateDB, readOneDoc } from '../Firebase/firestoreHelper';
 import { auth } from '../Firebase/firebaseSetup';
 
 const screenWidth = Dimensions.get('window').width;
@@ -11,9 +11,17 @@ export default function LocationManager() {
   const [location, setLocation] = React.useState(null);
   const [response, requestPermission] = Location.useForegroundPermissions();
   const navigation = useNavigation();
-
   const route = useRoute();
+
+  const getUserLocation= async() => {
+    const user = await readOneDoc(auth.currentUser.uid, 'users');
+    if (user.location) {
+      setLocation(user.location);
+    }
+  }
+
   useEffect(() => {
+    getUserLocation();
     if (route.params?.selectedLocation) {
       setLocation(route.params.selectedLocation);
     }
