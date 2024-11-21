@@ -29,6 +29,7 @@ export default function GoalItem({ goalObj, deleteHandler, itemSeparator }) {
 		<View key={goalObj.id} style={styles.textContainer}>
 			<Pressable 
 				onPress={() => {
+						console.log("GoalItem pressed: ", goalObj)
 						navigation.navigate('Details', { pressedGoal: goalObj })
 						}}
 				onLongPress={handleLongPress}

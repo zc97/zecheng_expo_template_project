@@ -62,7 +62,7 @@ export default function Home({ navigation }) {
     }
     let newGoal = { text: data.text }
     newGoal = { ...newGoal, owner: auth.currentUser.uid }
-    // await writeToDB(newGoal, collectionName)
+    await writeToDB(newGoal, collectionName)
     // setGoals(goals => [...goals, {text: textContent, id: Math.random()}]]
   }
 

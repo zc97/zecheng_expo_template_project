@@ -7,9 +7,11 @@ import GoalUsers from './GoalUsers';
 
 export default function GoalDetails({ navigation, route }) {
 	const [isWarning, setIsWarning] = useState(false)
-	const goalId = route.params.pressedGoal.id
-	
 
+	if (route.params?.pressedGoal) {
+		const goalId = route.params.pressedGoal.id
+	}
+	
 	const moreDetails = () => {
 		navigation.push('Details')
 	}
@@ -47,7 +49,7 @@ export default function GoalDetails({ navigation, route }) {
 			>
 				<Text> More Details </Text>
 			</PressableButton>
-			{route.params && <GoalUsers goalId = {route.params.pressedGoal.id}/>}
+			{route.params && <GoalUsers goalId = {route.params?.pressedGoal.id}/>}
 		</View>
 	)
 }

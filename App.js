@@ -13,6 +13,19 @@ import Profile from './Components/Profile';
 import PressableButton from './Components/PressableButton';
 import Map from './Components/Map';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import * as Notifications from 'expo-notifications';
+import Constants from 'expo-constants';
+
+Notifications.setNotificationHandler(
+  {
+    // callback function to handle notification which returns an promise objct
+    handleNotification: async () => {
+      return {
+        shouldShowAlert: true,
+      }
+    }
+  }
+)
 
 const Stack = createNativeStackNavigator();
 
@@ -73,7 +86,19 @@ const AppStack = <>
 
 export default function App() {
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
-
+  useEffect(() => {
+    const getToken = async () => {
+      try {
+        const token = Notifications.getExpoPushTokenAsync({
+          projectId: Constants.expoConfig.extra.eas.projectId,
+        });
+        console.log("Expo Push Token: ", token);
+      } catch (error) {
+        console.log("Error in getting the token: ", error);
+      }
+    }
+    getToken();
+  }, []);
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
