@@ -13,6 +13,17 @@ import Profile from './Components/Profile';
 import PressableButton from './Components/PressableButton';
 import Map from './Components/Map';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import * as Notifications from 'expo-notifications';
+
+Notifications.setNotificationHandler(
+  {
+    handleNotification: async () => {
+      return {
+        shouldShowAlert: true,
+      }
+    }
+  }
+)
 
 const Stack = createNativeStackNavigator();
 

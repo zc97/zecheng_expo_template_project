@@ -18,7 +18,6 @@ export default function NotificationManager() {
   async function scheduleNotificationHandler() {
     try {
       const hasPermission = await verifyPermisson()
-      console.log("Permission: ", hasPermission)
       if (!hasPermission) {
         Alert.alert("You need to give notification permission to schedule a notification.")
         return
