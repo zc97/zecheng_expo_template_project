@@ -12,7 +12,7 @@ export default function Input({isFocus, inputHandler, cancelHandler, inputVisibi
     
 
     const handleConfirm = () => {
-        console.log(text)
+        console.log('saving the goal:', text)
         inputHandler({text, imageUri})
         setText("")
     }
