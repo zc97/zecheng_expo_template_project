@@ -45,8 +45,13 @@ export default function LocationManager() {
   }
 
   function chooseLocationHandle() {
-    //navigate to the Map.js
-    navigation.navigate('Map');
+    // if location pass it to Map
+    if (location) {
+      navigation.navigate('Map', {initialLocation: location});
+      return;
+    } else {
+      navigation.navigate('Map');
+    }
   }
 
   return (
