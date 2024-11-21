@@ -10,6 +10,15 @@ export async function writeToDB(data, collectionName) {
   }
 }
 
+export async function updateDB(id, data, collectionName) {
+  try {
+    const docRef = doc(database, collectionName, id);
+    await updateDoc(docRef, data);
+  } catch (err) {
+    console.error("Update DB: ", err);
+  }
+}
+
 export async function deleteFromDB(deleteId, collectionName) { 
   try {
     const docRef = doc(database, collectionName, deleteId);
