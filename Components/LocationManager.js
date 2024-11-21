@@ -13,14 +13,13 @@ export default function LocationManager() {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const getUserLocation= async() => {
-    const user = await readOneDoc(auth.currentUser.uid, 'users');
-    if (user.location) {
-      setLocation(user.location);
-    }
-  }
-
   useEffect(() => {
+    const getUserLocation= async() => {
+      const user = await readOneDoc(auth.currentUser.uid, 'users');
+      if (user.location) {
+        setLocation(user.location);
+      }
+    }
     getUserLocation();
     if (route.params?.selectedLocation) {
       setLocation(route.params.selectedLocation);
@@ -67,6 +66,7 @@ export default function LocationManager() {
   function saveLocationHandler() {
     try {
       updateDB(auth.currentUser.uid, { location }, 'users');
+      navigation.goBack();
     } catch (error) {
       console.log("Error in saving user location: ", error)
     }
